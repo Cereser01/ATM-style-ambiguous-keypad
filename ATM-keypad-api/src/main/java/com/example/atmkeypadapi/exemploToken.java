@@ -8,18 +8,20 @@ import java.util.Map;
 @RestController
 public class TokenController {
 
+    private static final String ENCRYPTION_KEY = "el chavo";
+
     @PostMapping("/token")
     public Map<String, String> generateToken(@RequestBody Map<String, String> payload) {
         Map<String, String> response = new HashMap<>();
-        if (payload.containsKey("message") && payload.containsKey("key")) {
+        if (payload.containsKey("message")) {
             try {
-                String encrypted = encryptMessage(payload.get("message"), payload.get("key"));
+                String encrypted = encryptMessage(payload.get("message"), ENCRYPTION_KEY);
                 response.put("token", encrypted);
             } catch (Exception e) {
-                response.put("error", "Encryption failed");
+                response.put("erro", "Criptografia falhou");
             }
         } else {
-            response.put("error", "No message or key provided");
+            response.put("erro", "Nenhuma mensagem provida");
         }
         return response;
     }
