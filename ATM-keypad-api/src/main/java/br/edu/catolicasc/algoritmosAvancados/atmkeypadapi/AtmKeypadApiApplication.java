@@ -1,4 +1,4 @@
-package com.example.atmkeypadapi;
+package br.edu.catolicasc.algoritmosAvancados.atmkeypadapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
