@@ -16,6 +16,8 @@ import java.util.Base64;
 @Entity
 @Table
 public class Usuario {
+    @Id 
+    @GeneratedValue
     private Long id;
     private String nome;
     private String password;
