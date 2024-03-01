@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @RestController
@@ -18,21 +19,23 @@ public class TokenController {
     private static final String ENCRYPTION_KEY = "el chavo";
 
     @PostMapping("/token")
-    public Map<String, String> generateToken(@RequestBody Map<String, String> payload) {
-        Map<String, String> response = new HashMap<>();
-        if (payload.containsKey("message")) {
-            try {
-                String encrypted = encryptMessage(payload.get("message"), ENCRYPTION_KEY);
-                response.put("token", encrypted);
-                return (Map<String, String>) ResponseEntity.ok(response);
-            } catch (Exception e) {
-                response.put("erro", "Criptografia falhou");
-            }
-        } else {
-            response.put("erro", "Nenhuma mensagem provida");
+public ResponseEntity<?> generateToken(@RequestBody Map<String, String> payload) {
+    Map<String, String> response = new HashMap<>();
+    if (payload.containsKey("message")) {
+        try {
+            String encrypted = encryptMessage(payload.get("message"), ENCRYPTION_KEY);
+            response.put("token", encrypted);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("erro", "Criptografia falhou");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-        return response;
+    } else {
+        response.put("erro", "Nenhuma mensagem provida");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+}
+
 
     private String encryptMessage(String message, String key) throws Exception {
         byte[] byteKey = Base64.getDecoder().decode(key);
