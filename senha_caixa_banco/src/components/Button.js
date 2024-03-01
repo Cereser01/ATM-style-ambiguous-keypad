@@ -21,8 +21,6 @@ function Button({ label, onClick, clicado, fullWidth }) {
 
   const handleClick = () => {
     onClick();
-    const audio = new Audio('/button-click-sound.mp3'); // Adicione um arquivo de som chamado 'button-click-sound.mp3' na pasta public/
-    audio.play();
   };
 
   return (
