@@ -1,12 +1,14 @@
-package br.edu.catolicasc.algoritmosAvancados.atmkeypadapi;
+package br.edu.catolicasc.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 public class TokenController {
@@ -19,8 +21,8 @@ public class TokenController {
         if (payload.containsKey("message")) {
             try {
                 String encrypted = encryptMessage(payload.get("message"), ENCRYPTION_KEY);
-                response.put("token", encrypted);[
-                return ResponseEntity.ok(response);
+                response.put("token", encrypted);
+                return (Map<String, String>) ResponseEntity.ok(response);
             } catch (Exception e) {
                 response.put("erro", "Criptografia falhou");
             }
