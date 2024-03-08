@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-import br.edu.catolicasc.algoritmosAvancados.Usuario;
+import br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.Usuario;
 
 @Repository
 public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long>, JpaSpecificationExecutor<Usuario> {

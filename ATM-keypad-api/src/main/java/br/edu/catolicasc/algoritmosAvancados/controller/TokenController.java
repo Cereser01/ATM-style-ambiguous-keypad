@@ -1,4 +1,4 @@
-package br.edu.catolicasc.controller;
+package br.edu.catolicasc.algoritmosAvancados.controller;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

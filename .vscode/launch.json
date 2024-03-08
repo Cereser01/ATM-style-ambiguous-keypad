@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AtmKeypadApiApplication<cagekeeper>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.AtmKeypadApiApplication",
+            "projectName": "cagekeeper",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
