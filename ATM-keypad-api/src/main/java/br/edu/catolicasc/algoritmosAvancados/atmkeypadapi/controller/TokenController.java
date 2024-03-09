@@ -1,4 +1,4 @@
-package br.edu.catolicasc.algoritmosAvancados.controller;
+package br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.controller;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -18,7 +18,7 @@ public class TokenController {
 
     private static final String ENCRYPTION_KEY = "el chavo";
 
-    @PostMapping("/token")
+    @PostMapping("/post")
 public ResponseEntity<?> generateToken(@RequestBody Map<String, String> payload) {
     Map<String, String> response = new HashMap<>();
     if (payload.containsKey("message")) {
