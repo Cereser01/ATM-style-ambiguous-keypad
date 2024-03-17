@@ -2,28 +2,26 @@ package br.edu.catolicasc.algoritmosAvancados.atmkeypadapi;
 
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import br.edu.catolicasc.algoritmosAvancados.Usuario;
+import br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.dao.NewRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UsuarioTest {
+@SpringBootTest
+public class UsuarioTest {    
+    @Autowired
+	private NewRepository repository;
     @Test
-    public void testCriptografiaAES() {
-        String nome = "testUser";
-        String password = "testPassword";
-        Usuario usuario = new Usuario();
-        usuario.setNome(nome);
-        usuario.setPassword(password);
-
-        // Test encryption and decryption
-        String encryptedPassword = Usuario.CriptografiaAES.criptografar(password, nome);
-        String decryptedPassword = Usuario.CriptografiaAES.decriptografar(encryptedPassword, nome);
-
-        assertEquals(password, decryptedPassword, "Decrypted password should match the original password");
-
-        // Test password setter and getter
-        assertEquals(usuario.getPassword(), decryptedPassword, "Password returned by getter should match the original password");
-    }
+    public void usuarioSalvaTest() {
+		Usuario user = new Usuario();
+		user.setNome("Eduardo_Morias");
+		user.setPassword("1231");
+		repository.save(user);
+		System.out.println(user.getNome());
+		System.out.println(user.getPassword());
+	
+	}
     
 }

@@ -1,5 +1,5 @@
 package br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.dto;
-import br.edu.catolicasc.algoritmosAvancados.Usuario;
+import br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.Usuario;
 import br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.dao.NewRepository;
 
 public class RequisicaoNovoUsuario {

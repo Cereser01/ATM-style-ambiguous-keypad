@@ -1,4 +1,21 @@
-package br.edu.catolicasc.controller;
+package br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+
+@RestController
+@RequestMapping("/token")
+public class TokenController {
+
+    @GetMapping
+    public ResponseEntity<?> generateToken() {
+        return ResponseEntity.ok("12345678");
+    }
+}
+//algoritmo antigo
+/*package br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.controller;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -18,7 +35,7 @@ public class TokenController {
 
     private static final String ENCRYPTION_KEY = "el chavo";
 
-    @PostMapping("/token")
+    @PostMapping("/post")
 public ResponseEntity<?> generateToken(@RequestBody Map<String, String> payload) {
     Map<String, String> response = new HashMap<>();
     if (payload.containsKey("message")) {
@@ -48,3 +65,4 @@ public ResponseEntity<?> generateToken(@RequestBody Map<String, String> payload)
         return Base64.getEncoder().encodeToString(byteCipherText);
     }
 }
+ */
