@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import Button from './components/Button';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBackspace, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 
 function App() {
   const [options, setOptions] = useState('');
 
-  const handleButtonClick = (label) => {
-    if (label === "Apagar") {
-      setOptions('');
+  const handleButtonClick = (label, iconName) => {
+    if (iconName === 'faBackspace') {
+      setOptions(options.slice(0, -1));
     } else {
-      setOptions(options + label);
+      setOptions(options + label[label.length - 1]);
     }
   };
 
@@ -28,8 +29,8 @@ function App() {
         <Button label="1 ou 4" onClick={() => handleButtonClick("1 ou 4")} />
         <Button label="6 ou 7" onClick={() => handleButtonClick("6 ou 7")} />
         <Button
-          onClick={() => handleButtonClick("Apagar")}
-          icon={<FontAwesomeIcon icon={faTrash} />}
+          onClick={() => handleButtonClick('', 'faBackspace')}
+          icon={<FontAwesomeIcon icon={faTimes} />}
         />
       </div>
       <div className="options-container">

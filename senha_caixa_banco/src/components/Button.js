@@ -1,6 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Button({ label, onClick, clicado, fullWidth }) {
+function Button({ icon, label, onClick, fullWidth }) {
   const estiloBotao = {
     fontSize: '32px',
     width: fullWidth ? '100%' : '200px',
@@ -12,11 +13,11 @@ function Button({ label, onClick, clicado, fullWidth }) {
     cursor: 'pointer',
     borderRadius: '12px',
     boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
-    transition: 'box-shadow 0.3s ease',
+   transition: 'box-shadow 0.3s ease',
   };
 
-  const estiloRotulo = {
-    visibility: clicado ? 'hidden' : 'visible',
+  const estiloIcone = {
+    marginRight: '8px',
   };
 
   const handleClick = () => {
@@ -25,7 +26,8 @@ function Button({ label, onClick, clicado, fullWidth }) {
 
   return (
     <button onClick={handleClick} style={estiloBotao}>
-      <span style={estiloRotulo}>{label}</span>
+      {icon && <FontAwesomeIcon icon={icon} style={estiloIcone} />}
+      <span>{label}</span>
     </button>
   );
 }
