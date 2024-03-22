@@ -21,6 +21,12 @@ public class UsuarioTest {
 		repository.save(user);
 		System.out.println(user.getNome());
 		System.out.println(user.getPassword());
+		Usuario user2 = new Usuario();
+		user2.setNome("Julio_Spezzia");
+		user2.setPassword("1231");
+		repository.save(user2);
+		System.out.println(user2.getNome());
+		System.out.println(user2.getPassword());
 	
 	}
     
