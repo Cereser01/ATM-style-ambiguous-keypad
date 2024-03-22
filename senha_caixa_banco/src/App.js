@@ -4,7 +4,6 @@ import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackspace, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-
 function App() {
   const [options, setOptions] = useState('');
 
@@ -29,7 +28,8 @@ function App() {
         <Button label="1 ou 4" onClick={() => handleButtonClick("1 ou 4")} />
         <Button label="6 ou 7" onClick={() => handleButtonClick("6 ou 7")} />
         <Button
-          onClick={() => handleButtonClick('', 'faBackspace')}
+          onClick={() => handleButtonClick('Apagar', 'faBackspace')}
+          label="Apagar"
           icon={<FontAwesomeIcon icon={faTimes} />}
         />
       </div>
