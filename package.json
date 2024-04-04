@@ -1,0 +1,11 @@
+{
+  "name": "atm-style-ambiguous-keypad",
+  "version": "1.0.0",
+  "description": "Teclado numérico com números ambíguos estilo caixa eletrônico",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
