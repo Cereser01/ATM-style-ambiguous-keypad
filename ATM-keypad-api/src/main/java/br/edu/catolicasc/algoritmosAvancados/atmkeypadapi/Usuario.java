@@ -30,16 +30,21 @@ public class Usuario {
     }
 
     public String getNome() {
-        return this.nome;
+        String a = this.nome;
+        a = CriptografiaAES.decriptografar(a, "coringuei");
+        return a;
+        //return this.nome;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        String a = CriptografiaAES.criptografar(nome, "coringuei");
+        this.nome = a;
+        //this.nome = nome;
     }
 
     public String getPassword() {
         String a = this.password;
-        a = CriptografiaAES.decriptografar(a, this.nome);
+        a = CriptografiaAES.decriptografar(a, CriptografiaAES.decriptografar(this.nome, "coringuei"));
         return a;
     }
 
