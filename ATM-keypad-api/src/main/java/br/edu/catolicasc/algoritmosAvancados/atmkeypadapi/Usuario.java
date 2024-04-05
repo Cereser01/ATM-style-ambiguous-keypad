@@ -49,7 +49,7 @@ public class Usuario {
     }
 
     public void setPassword(String password) {
-        String a = CriptografiaAES.criptografar(password, this.nome);
+        String a = CriptografiaAES.criptografar(password, CriptografiaAES.decriptografar(this.nome, "coringuei"));
         this.password = a;
     }
 
