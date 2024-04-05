@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AtmKeypadApiApplication",
+            "request": "launch",
+            "mainClass": "br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.AtmKeypadApiApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-AtmKeypadApiApplication<cagekeeper>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

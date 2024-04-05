@@ -1,73 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from './components/Button';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackspace, faTimes } from '@fortawesome/free-solid-svg-icons';
-import '../../ATM-keypad-api/src/main/java/br/edu/catolicasc/algoritmosAvancados/atmkeypadapi/Usuario.java';
+import CryptoJS from 'crypto-js';
+ 
+/*import '/home/vandelsoncleitoso/Documentos/Faculdade/git/Grupo-5---PAC-V-2023/ATM-style-ambiguous-keypad/senha_caixa_banco/src/ATM-keypad-api/src/main/java/br/edu/catolicasc/algoritmosAvancados/atmkeypadapi/Usuario.java';
 
-const db = require('../../banco/conn');
+const db = require('/home/vandelsoncleitoso/Documentos/Faculdade/git/Grupo-5---PAC-V-2023/ATM-style-ambiguous-keypad/senha_caixa_banco/src/banco/conn.js');
 
 const CryptoJS = require("crypto-js");
-
 const ITERATIONS = 10000;
 const KEY_LENGTH = 128 / 32; // 128 bits = 16 bytes
-
+ 
 function gerarChave(nome) {
     let salt = CryptoJS.enc.Utf8.parse(nome);
     let key = CryptoJS.PBKDF2(nome, salt, { keySize: KEY_LENGTH, iterations: ITERATIONS });
     return key;
 }
-
+ 
 function criptografar(plaintext, nome) {
     let key = gerarChave(nome);
     let encrypted = CryptoJS.AES.encrypt(plaintext, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
     return encrypted.toString();
 }
-
+ 
 function decriptografar(ciphertext, nome) {
     let key = gerarChave(nome);
     let decrypted = CryptoJS.AES.decrypt(ciphertext, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
     return decrypted.toString(CryptoJS.enc.Utf8);
+}*/
+ 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
-
+ 
 function App() {
-  const [options, setOptions] = useState('');
-
-  const handleButtonClick = (label, iconName) => {
-    if (iconName === 'faBackspace') {
-      setOptions(options.slice(0, -1));
-    } else {
-      setOptions(options + label[label.length - 1]);
+  const [buttonNumbers, setButtonNumbers] = useState([]);
+ 
+  useEffect(() => {
+    updateButtonNumbers();
+  }, []);
+ 
+  function updateButtonNumbers() {
+    const numbers = Array.from({ length: 10 }, (_, i) => i);
+    const shuffledNumbers = shuffleArray(numbers);
+    const newButtonNumbers = shuffledNumbers.map((num, index) => {
+      return `${num} ou ${shuffledNumbers[index + 5]}`;
+    });
+    setButtonNumbers(newButtonNumbers);
+  }
+ 
+  function handleButtonClick(buttonText) {
+    const passwordInput = document.getElementById("password-input");
+    if (passwordInput.value.length < 6) {
+      passwordInput.value += buttonText.split(" ou ")[0];
     }
-  };
-
-  const maskedOptions = options.replace(/./g, '*');
-
+  }
+ 
   return (
-    <div className="app-container">
-      <div className="button-row">
-        <Button label="3 ou 9" onClick={() => handleButtonClick("3 ou 9")} />
-        <Button label="0 ou 5" onClick={() => handleButtonClick("0 ou 5")} />
-        <Button label="2 ou 8" onClick={() => handleButtonClick("2 ou 8")} />
+    <div>
+      <div id="buttons-container">
+        {buttonNumbers.map((buttonText, index) => (
+          <button key={index} onClick={() => handleButtonClick(buttonText)}>
+            {buttonText}
+          </button>
+        ))}
       </div>
-      <div className="button-row">
-        <Button label="1 ou 4" onClick={() => handleButtonClick("1 ou 4")} />
-        <Button label="6 ou 7" onClick={() => handleButtonClick("6 ou 7")} />
-        <Button
-          onClick={() => handleButtonClick('Apagar', 'faBackspace')}
-          label="Apagar"
-          icon={<FontAwesomeIcon icon={faTimes} />}
-        />
-      </div>
-      <div className="options-container">
-        <p className="options-description">Digite sua senha:</p>
-        <p className="options">{maskedOptions}</p>
-      </div>
-      <div className="button-row">
-        <Button label="Acessar" onClick={() => handleButtonClick("Acessar")} fullWidth />
-      </div>
+      <input id="password-input" type="text" />
     </div>
   );
 }
-
+ 
 export default App;
