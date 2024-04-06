@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TesteUsuarioController",
+            "request": "launch",
+            "mainClass": "br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.TesteUsuarioController",
+            "projectName": "cagekeeper"
+        },
+        {
+            "type": "java",
             "name": "AtmKeypadApiApplication",
             "request": "launch",
             "mainClass": "br.edu.catolicasc.algoritmosAvancados.atmkeypadapi.AtmKeypadApiApplication",
