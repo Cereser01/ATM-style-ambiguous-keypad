@@ -3,8 +3,8 @@ import Button from './components/Button';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackspace, faTimes } from '@fortawesome/free-solid-svg-icons';
-import CryptoJS from 'crypto-js';
- 
+//import CryptoJS from 'crypto-js';
+
 /*import '/home/vandelsoncleitoso/Documentos/Faculdade/git/Grupo-5---PAC-V-2023/ATM-style-ambiguous-keypad/senha_caixa_banco/src/ATM-keypad-api/src/main/java/br/edu/catolicasc/algoritmosAvancados/atmkeypadapi/Usuario.java';
 
 const db = require('/home/vandelsoncleitoso/Documentos/Faculdade/git/Grupo-5---PAC-V-2023/ATM-style-ambiguous-keypad/senha_caixa_banco/src/banco/conn.js');
@@ -30,7 +30,7 @@ function decriptografar(ciphertext, nome) {
     let decrypted = CryptoJS.AES.decrypt(ciphertext, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
     return decrypted.toString(CryptoJS.enc.Utf8);
 }*/
- 
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -38,42 +38,71 @@ function shuffleArray(array) {
   }
   return array;
 }
- 
+
 function App() {
   const [buttonNumbers, setButtonNumbers] = useState([]);
- 
+  const [options, setOptions] = useState('');
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     updateButtonNumbers();
   }, []);
- 
+
   function updateButtonNumbers() {
     const numbers = Array.from({ length: 10 }, (_, i) => i);
     const shuffledNumbers = shuffleArray(numbers);
     const newButtonNumbers = shuffledNumbers.map((num, index) => {
-      return `${num} ou ${shuffledNumbers[index + 5]}`;
+      if (shuffledNumbers[index + 5] != null && shuffledNumbers[index + 5] != undefined) {
+        return `${num} ou ${shuffledNumbers[index + 5]}`;
+      } else {
+        return null;
+      }
     });
     setButtonNumbers(newButtonNumbers);
   }
- 
+
   function handleButtonClick(buttonText) {
-    const passwordInput = document.getElementById("password-input");
-    if (passwordInput.value.length < 6) {
-      passwordInput.value += buttonText.split(" ou ")[0];
+    if (options.length < 6) {
+      setOptions(options + buttonText.split(" ou ")[0]);
     }
   }
- 
+
+  const handleDeleteClick = (label, iconName) => {
+    if (iconName === 'faBackspace') {
+      setOptions(options.slice(0, -1));
+    }
+  }
+
+  const maskedOptions = options.replace(/./g, '*');
+
   return (
     <div>
-      <div id="buttons-container">
+      <div id="buttons-container" className='button-row'>
         {buttonNumbers.map((buttonText, index) => (
-          <button key={index} onClick={() => handleButtonClick(buttonText)}>
-            {buttonText}
-          </button>
+          <Button label={buttonText} key={index} onClick={() => handleButtonClick(buttonText)} />
         ))}
       </div>
-      <input id="password-input" type="text" />
+      <div className='button-row'>
+        <Button
+          onClick={() => handleDeleteClick('Apagar', 'faBackspace')}
+          label="Apagar"
+          icon={<FontAwesomeIcon icon={faTimes} />}
+        />
+        <Button label="Acessar" onClick={() => setError(true)} fullWidth />
+      </div>
+      <div className="button-row">
+        <div className="options-container">
+          <p className="options-description">Digite sua senha:</p>
+          <p className="options" id="password-input">{maskedOptions}</p>
+        </div>
+      </div>
+      <div className="button-row">
+        {error && (
+          <p className="options-description">Senha errada</p>
+        )}
+      </div>
     </div>
   );
 }
- 
+
 export default App;
